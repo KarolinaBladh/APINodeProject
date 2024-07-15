@@ -1,13 +1,11 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const feedRoutes = require("./routes/feed");
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'none'");
-  next();
-});
+app.use(bodyParser.json());
 
 app.use("/feed", feedRoutes);
 
