@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production APP_SUPABASE_URL=https://bjxejvdfzpathkjplleg.supabase.co APP_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqeGVqdmRmenBhdGhranBsbGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExMTc5MjEsImV4cCI6MjAzNjY5MzkyMX0.nenMkMJTA_77ikFeXnXPuQpPqrX0Ke1V-qYBqQcnCD4 node app.js",
+    "start:dev": "nodemon app.js"
   },
   "author": "Karolina Bladh",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "nodemon": "^3.1.4"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.44.4",
     "body-parser": "^1.20.2",
     "express": "^4.19.2"
   }

@@ -1,0 +1,6 @@
+{
+  "env": {
+    "APP_SUPABASE_URL": "https://bjxejvdfzpathkjplleg.supabase.co",
+    "APP_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqeGVqdmRmenBhdGhranBsbGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExMTc5MjEsImV4cCI6MjAzNjY5MzkyMX0.nenMkMJTA_77ikFeXnXPuQpPqrX0Ke1V-qYBqQcnCD4"
+  }
+}
