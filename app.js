@@ -10,14 +10,12 @@ app.use(bodyParser.json());
 
 app.get("/images", async (req, res) => {
   try {
-    console.log(supabase);
     const { data, error } = await supabase.from("image").select();
 
     if (error) {
       throw error;
     }
     if (data) {
-      console.log(data);
       res.status(200).send(data);
     }
   } catch (error) {
