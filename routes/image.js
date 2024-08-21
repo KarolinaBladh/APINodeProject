@@ -4,13 +4,13 @@ const imageController = require("../controllers/image");
 
 const router = express.Router();
 
-// POST /feed/post
-//router.post("/post", feedController.createPost);
-
 // GET /image/images
-router.get("/images", imageController.getImages);
+router.get("/getImages", imageController.getImages);
 
 // GET /image/image
-router.get("/image", imageController.getImage);
+router.get("/getImage/:imageId", imageController.getImage);
+
+// POST /image
+router.post("/postImage", imageController.postImage);
 
 module.exports = router;

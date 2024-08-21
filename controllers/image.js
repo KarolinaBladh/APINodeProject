@@ -1,15 +1,5 @@
 const supabase = require("../config.js");
 
-/*exports.createPost = (req, res, next) => {
-  const title = req.body.title;
-  const content = req.body.content;
-  //create post in db
-  res.status(201).json({
-    message: "Post created;",
-    posts: [{ id: new Date().toISOString(), title: title, content: content }],
-  });
-};*/
-
 exports.getImages = async (req, res, next) => {
   try {
     const { data, error } = await supabase.from("image").select();
@@ -26,15 +16,35 @@ exports.getImages = async (req, res, next) => {
 };
 
 exports.getImage = async (req, res, next) => {
-  const imageId = req.body.id;
+  const imageId = req.params.imageId;
   try {
-    const { data, error } = await supabase.from("image").select("*").eq('id', 2) ;
+    const { data, error } = await supabase.from("image").select("*").eq('id', imageId);
 
     if (error) {
       throw error;
     }
     if (data) {
       res.status(200).json({image: data});
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.postImage = async (req, res, next) => {
+  //const title = req.body.title;
+  //const content = req.body.content;
+
+  try {
+    const { data, error } = await supabase.from('image')
+    .insert([{ name: 'someValue', url: 'otherValue', description: 'otherValue' },])
+    .select();
+
+    if (error) {
+      throw error;
+    }
+    if (data) {
+      res.status(201).json({image: data});
     }
   } catch (error) {
     console.log(error);
