@@ -32,12 +32,19 @@ exports.getImage = async (req, res, next) => {
 };
 
 exports.postImage = async (req, res, next) => {
-  //const title = req.body.title;
-  //const content = req.body.content;
+
+  if(!req.file){
+    const error = new Error("No image provided");
+    error.statusCode = 422;
+    throw error;
+  }
+  const name = req.body.name;
+  const url = req.file.path;;
+  const description =  req.body.description;
 
   try {
     const { data, error } = await supabase.from('image')
-    .insert([{ name: 'someValue', url: 'otherValue', description: 'otherValue' },])
+    .insert([{ name: name, url: url, description: description },])
     .select();
 
     if (error) {
