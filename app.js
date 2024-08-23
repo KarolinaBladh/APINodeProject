@@ -11,7 +11,7 @@ const fileStorage = multer.diskStorage({
         cb(null, "images");
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + "-" + file.originalname);
+        cb(null, file.originalname);
     }
 });
 
@@ -26,8 +26,22 @@ const fileFilter =  (req, file, cb) => {
     }
 }
 
+/**
+ const express=require('express');
+const app=express();
+const multer  = require('multer')
+const upload = multer({ dest: 'src/public/uploads/' })
+
+    
+app.post('/upload',upload.single('pic'),(req,res)=>{
+    // req.file is the picture
+    // req.body is text inputs
+    res.status(200).send("File Uploaded");
+});
+ */
+
 app.use(bodyParser.json());
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single(image));
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single("image"));
 
 app.use("/image", imageRoutes);
 

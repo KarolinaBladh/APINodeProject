@@ -39,7 +39,7 @@ exports.postImage = async (req, res, next) => {
     throw error;
   }
   const name = req.body.name;
-  const url = req.file.path;;
+  const url = req.file.path;
   const description =  req.body.description;
 
   try {
@@ -57,3 +57,20 @@ exports.postImage = async (req, res, next) => {
     console.log(error);
   }
 };
+
+/**
+ import { createClient } from '@supabase/supabase-js'
+
+// Create Supabase client
+const supabase = createClient('your_project_url', 'your_supabase_api_key')
+
+// Upload file using standard upload
+async function uploadFile(file) {
+  const { data, error } = await supabase.storage.from('bucket_name').upload('file_path', file)
+  if (error) {
+    // Handle error
+  } else {
+    // Handle success
+  }
+}
+ */
