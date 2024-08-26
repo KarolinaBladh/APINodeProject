@@ -58,6 +58,18 @@ exports.postImage = async (req, res, next) => {
   }
 };
 
+/*
+router.post('/fileUpload', upload.single('image'), (req, res, next) => {
+    MongoClient.connect(url, (err, db) => {
+        assert.equal(null, err);
+        insertDocuments(db, 'public/images/uploads/' + req.file.filename, () => {
+            db.close();
+            res.json({'message': 'File uploaded successfully'});
+        });
+    });
+});
+*/
+
 /**
  import { createClient } from '@supabase/supabase-js'
 
@@ -66,7 +78,7 @@ const supabase = createClient('your_project_url', 'your_supabase_api_key')
 
 // Upload file using standard upload
 async function uploadFile(file) {
-  const { data, error } = await supabase.storage.from('bucket_name').upload('file_path', file)
+  const { data, error } = await supabase.storage.from('images').upload('../images', req.file.filename);
   if (error) {
     // Handle error
   } else {
