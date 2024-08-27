@@ -86,3 +86,8 @@ async function uploadFile(file) {
   }
 }
  */
+
+/*
+const { data } = supabase.storage.from('bucket').getPublicUrl('filePath.jpg')
+console.log(data.publicUrl)
+*/
