@@ -5,14 +5,16 @@ const imageController = require("../controllers/image");
 
 const router = express.Router();
 
-const fileStorage = multer.diskStorage({
+/*const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "images");
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, new Date().valueOf() + file.originalname);
     }
-});
+});*/
+
+const fileStorage = multer.memoryStorage();
 
 const fileFilter =  (req, file, cb) => {
     if( file.mimetype === "image/png" ||

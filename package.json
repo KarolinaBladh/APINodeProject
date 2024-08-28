@@ -11,6 +11,7 @@
   "author": "Karolina Bladh",
   "license": "ISC",
   "devDependencies": {
+    "base64-arraybuffer": "^1.0.2",
     "nodemon": "^3.1.4"
   },
   "dependencies": {
