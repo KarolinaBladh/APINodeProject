@@ -33,6 +33,7 @@ exports.getImage = async (req, res, next) => {
 };
 
 exports.postImage = async (req, res, next) => {
+  let imageName = "";
   try {
     const name = req.body.name;
     const description =  req.body.description;
@@ -46,7 +47,7 @@ exports.postImage = async (req, res, next) => {
 
     const fileBase64 = base64.decode(image.buffer.toString("base64"));
 
-    const imageName = new Date().valueOf() + image.originalname;
+    imageName = new Date().valueOf() + image.originalname;
 
     const { data, error } = await supabase.storage.from('images')
     .upload(imageName, fileBase64 );
@@ -65,55 +66,20 @@ exports.postImage = async (req, res, next) => {
       .select();
 
       if (error) {
-        //ta bort bild om error
-        //await supabase.storage.from('bucket').remove(['object-key-1', 'object-key-2', ...])
-
         throw error;
       }
       res.status(201).json({image: data});
+    } else {
+      throw error;
     }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error });
+  } catch (dataError) {
+    //ta bort bild om error
+    let removeError = "Image was removed. ";
+    const { data, error } = await supabase.storage.from('images').remove([ imageName ]);
+    if (error || (!error && data.length == 0)) {
+      removeError = "Deletion of image failed. ";
+    }
+    
+    res.status(500).json({ error: removeError + dataError });
   }
 };
-
-/*
-router.post('/fileUpload', upload.single('image'), (req, res, next) => {
-    MongoClient.connect(url, (err, db) => {
-        assert.equal(null, err);
-        insertDocuments(db, 'public/images/uploads/' + req.file.filename, () => {
-            db.close();
-            res.json({'message': 'File uploaded successfully'});
-        });
-    });
-});
-*/
-
-/**
- import { createClient } from '@supabase/supabase-js'
-
-// Create Supabase client
-const supabase = createClient('your_project_url', 'your_supabase_api_key')
-
-// Upload file using standard upload
-async function uploadFile(file) {
-  const { data, error } = await supabase.storage.from('images').upload('../images', req.file.filename);
-  if (error) {
-    // Handle error
-  } else {
-    // Handle success
-  }
-}
- */
-
-/*
-const { data } = supabase.storage.from('bucket').getPublicUrl('filePath.jpg')
-console.log(data.publicUrl)
-
-https://[project_id].supabase.co/storage/v1/object/public/[bucket]/[asset-name]
-*/
-
-/*
-fs.unlinkSync(DIR+'/'+req.params.imagename+'.png');
-*/
