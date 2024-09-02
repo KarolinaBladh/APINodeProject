@@ -37,10 +37,11 @@ exports.getCreatorImages = async (req, res, next) => {
 exports.postCreator = async (req, res, next) => {
   try {
     const name = req.body.name;
+    const role = req.body.role;
 
     const { data, error } = await supabase
       .from("creator")
-      .insert([{ name: name }])
+      .insert([{ name: name, role: role }])
       .select();
 
     if (error) {
