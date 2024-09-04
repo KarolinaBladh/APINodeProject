@@ -59,7 +59,6 @@ exports.postImage = async (req, res, next) => {
   try {
     const name = req.body.name;
     const description = req.body.description;
-    const page = req.body.page;
     const image = req.file;
 
     if (!image) {
@@ -92,7 +91,6 @@ exports.postImage = async (req, res, next) => {
             name: name,
             url: newImage.publicUrl,
             description: description,
-            page: page,
           },
         ])
         .select();
@@ -122,14 +120,13 @@ exports.postImageCreators = async (req, res, next) => {
   try {
     const imageId = req.body.imageId;
     const creatorIds = req.body.creatorIds;
-    const isComic = req.body.isComic;
     const creatorIdList = [];
 
     creatorIds.forEach((id) => {
       let regex = /\D/;
       let bool = regex.test(id);
       if (!bool && id.length > 0) {
-        creatorIdList.push({ creator: id, image: imageId, is_comic: isComic });
+        creatorIdList.push({ creator: id, image: imageId });
       }
     });
 
